@@ -6,7 +6,12 @@ namespace FoodStock.Common.DomainModel
     /// Проддукт питания, содержание питательных веществ и каллорийность
     /// </summary>
     public class FoodItem
-    {      
+    {
+        /// <summary>
+        /// паищевая ценность продкукта расчитывается на 100 грамм продукта
+        /// </summary>
+        public const double BASE_WEIGHT = 100.0;
+        
         public string Name { get; set; }
 
         public uint Calories { get; set; }
