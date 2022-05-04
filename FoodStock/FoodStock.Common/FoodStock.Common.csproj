@@ -49,7 +49,7 @@
     <Compile Include="DomainModel\EnergyCost.cs" />
     <Compile Include="DomainModel\EnergyCostTree.cs" />
     <Compile Include="DomainModel\FoodItem.cs" />
-    <Compile Include="DomainModel\FoodItemsTree.cs" />
+    <Compile Include="DomainModel\FoodItemsCatalog.cs" />
     <Compile Include="DomainModel\Handbook.cs" />
     <Compile Include="IHandbooksRepository.cs" />
     <Compile Include="IHandbooksPresenter.cs" />

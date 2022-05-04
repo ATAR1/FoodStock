@@ -13,7 +13,7 @@ namespace FoodStock.Common.DomainModel
     {
         public DishesTree Dishes { get; }
 
-        public FoodItemsTree FoodItems { get; }
+        public FoodItemsCatalog FoodItems { get; }
 
         public AdviceCatalog Advices { get; }
 
