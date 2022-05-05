@@ -48,6 +48,7 @@
     <Compile Include="DomainModel\DishesTree.cs" />
     <Compile Include="DomainModel\EnergyCost.cs" />
     <Compile Include="DomainModel\EnergyCostTree.cs" />
+    <Compile Include="DomainModel\Folder.cs" />
     <Compile Include="DomainModel\FoodItem.cs" />
     <Compile Include="DomainModel\FoodItemsCatalog.cs" />
     <Compile Include="DomainModel\Handbook.cs" />

@@ -12,28 +12,35 @@ namespace FoodStock.Common.DomainModel.Tests
     public class FoodItemsCatalogTests
     {
         [TestMethod()]
-        public void AddNewFoodItemMustGenerateNewItem()
-        {
-            FoodItemsCatalog tree = new FoodItemsCatalog();
-            
-            tree.AddNewFoodItemCommand?.Execute();
-            var newFoodItem =
-
-            Assert.IsNotNull(newFoodItem);
-
-        }
-
-        [TestMethod()]
-        public void AddNewFoodItemTest()
+        public void AddNewFFolderAndAddNewItemTest()
         {
             FoodItemsCatalog tree = new FoodItemsCatalog();
 
-            var newFoodItem = tree.AddNewFoodItem();
-            var newFoodItem2 = tree.AddNewFoodItem();
+            var folderA = tree.AddNewFolder();
+            var folderB = tree.AddNewFolder();
+            var folderC = tree.AddNewFolder();
 
-            Assert.IsTrue(tree.Contains(newFoodItem));
-            Assert.IsTrue(tree.Contains(newFoodItem2));
+            Assert.AreEqual(3, tree.Folders.Count);
 
+            tree.SelectedFolder = folderB;
+            var folderBA = tree.AddNewFolder();
+            var folderBB = tree.AddNewFolder();
+            tree.SelectedFolder = folderBA;
+            var item = tree.AddNewItem();
+            tree.AddNewItem();
+            tree.AddNewItem();
+
+            Assert.AreEqual(3, folderBA.Items.Count);
+            Assert.IsInstanceOfType(item,typeof(FoodItem));
         }
+
+
+        [TestMethod]
+        public void AddNewItemDeniedOnFirstLevel()
+        {
+            FoodItemsCatalog tree = new FoodItemsCatalog();
+            Assert.IsNull(tree.AddNewItem, "Добавление нового элемента на первый уровень не должно быть доступно!");
+        }
+        
     }
 }
