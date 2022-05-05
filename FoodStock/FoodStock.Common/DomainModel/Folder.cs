@@ -42,8 +42,16 @@ namespace FoodStock.Common.DomainModel
             }
         }
 
+
+        /// <summary>
+        /// Создаёт новую папку, добавляет в Folders и возвращает её.
+        /// </summary>
         public Func<Folder<T>> AddNewFolder => SelectedFolder?.AddNewFolder ?? AddNewFolderImpl;
 
+
+        /// <summary>
+        /// Создаёт новый элемент, добавляет в Items и возвращает его.
+        /// </summary>
         public Func<T> AddNewItem => SelectedFolder?.AddNewItem ??  AddNewItemImpl;
     }
 }

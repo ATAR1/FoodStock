@@ -9,7 +9,8 @@ namespace FoodStock.Common.DomainModel
     public class FoodItemsCatalog:Folder<FoodItem>
     {   
         /// <summary>
-        /// Переопределение для того чтобы запретить добавление продуктов в корневой каталог
+        /// Переопределение для того чтобы запретить добавление продуктов в корневой каталог. 
+        /// Если выбран не корневой каталог добавляет в коллекцию новый продукт и возвращает его.
         /// </summary>
         public new Func<FoodItem> AddNewItem => SelectedFolder!=null?SelectedFolder.AddNewItem:null;
     }
