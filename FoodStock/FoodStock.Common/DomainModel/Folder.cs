@@ -7,9 +7,10 @@ namespace FoodStock.Common.DomainModel
     /// Папка которая может может содержать вложенные папки и/или элементы
     /// </summary>
     /// <typeparam name="T">Тип элементов которые могут содержаться в этой папке либо во вложенных папках</typeparam>
-    public class Folder<T> where T:new()
+    public class Folder<T>:IItemsContainer<T>,IItemsContainer<Folder<T>> where T:new()
     {
         private Folder<T> _selectedFolder;
+        private T _selectedItem;
 
         private T AddNewItemImpl()
         {
@@ -25,11 +26,23 @@ namespace FoodStock.Common.DomainModel
             return newFolder;
         }
 
-        public ICollection<Folder<T>> Folders { get; } = new List<Folder<T>>();
-
         public ICollection<T> Items { get; } = new List<T>();
 
-        public Folder<T> SelectedFolder
+        public T SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+            }
+        }
+
+        public ICollection<Folder<T>> Folders { get; } = new List<Folder<T>>();
+        
+        private Folder<T> SelectedFolder
         {
             get
             {
@@ -46,12 +59,20 @@ namespace FoodStock.Common.DomainModel
         /// <summary>
         /// Создаёт новую папку, добавляет в Folders и возвращает её.
         /// </summary>
-        public Func<Folder<T>> AddNewFolder => SelectedFolder?.AddNewFolder ?? AddNewFolderImpl;
+        public Func<Folder<T>> AddNewFolder => _selectedFolder?.AddNewFolder ?? AddNewFolderImpl;
 
 
         /// <summary>
         /// Создаёт новый элемент, добавляет в Items и возвращает его.
         /// </summary>
-        public Func<T> AddNewItem => SelectedFolder?.AddNewItem ??  AddNewItemImpl;
+        public Func<T> AddNewItem => _selectedFolder?.AddNewItem ??  AddNewItemImpl;
+
+        Func<Folder<T>> IItemsContainer<Folder<T>>.AddNewItem => AddNewFolder;
+
+        public Action RemoveSelectedItem => ()=> { Items.Remove(SelectedItem); SelectedItem = default(T); };
+
+        Folder<T> IItemsContainer<Folder<T>>.SelectedItem { get => SelectedFolder; set => SelectedFolder = value; }
+
+        ICollection<Folder<T>> IItemsContainer<Folder<T>>.Items => Folders;
     }
 }

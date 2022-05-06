@@ -22,10 +22,10 @@ namespace FoodStock.Common.DomainModel.Tests
 
             Assert.AreEqual(3, tree.Folders.Count);
 
-            tree.SelectedFolder = folderB;
+            tree.SelectedItem = folderB;
             var folderBA = tree.AddNewFolder();
             var folderBB = tree.AddNewFolder();
-            tree.SelectedFolder = folderBA;
+            tree.SelectedItem = folderBA;
             var item = tree.AddNewItem();
             tree.AddNewItem();
             tree.AddNewItem();

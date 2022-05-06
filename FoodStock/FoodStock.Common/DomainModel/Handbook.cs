@@ -11,7 +11,7 @@ namespace FoodStock.Common.DomainModel
     /// </summary>
     public class Handbook
     {
-        public DishesTree Dishes { get; }
+        public DishesCatalog Dishes { get; }
 
         public FoodItemsCatalog FoodItems { get; }
 

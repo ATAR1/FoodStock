@@ -45,13 +45,14 @@
     <Compile Include="DomainModel\Advice.cs" />
     <Compile Include="DomainModel\AdviceCatalog.cs" />
     <Compile Include="DomainModel\Dish.cs" />
-    <Compile Include="DomainModel\DishesTree.cs" />
+    <Compile Include="DomainModel\DishesCatalog.cs" />
     <Compile Include="DomainModel\EnergyCost.cs" />
     <Compile Include="DomainModel\EnergyCostTree.cs" />
     <Compile Include="DomainModel\Folder.cs" />
     <Compile Include="DomainModel\FoodItem.cs" />
     <Compile Include="DomainModel\FoodItemsCatalog.cs" />
     <Compile Include="DomainModel\Handbook.cs" />
+    <Compile Include="DomainModel\IItemsContainer.cs" />
     <Compile Include="IHandbooksRepository.cs" />
     <Compile Include="IHandbooksPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
