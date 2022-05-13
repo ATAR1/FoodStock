@@ -25,7 +25,7 @@ namespace FoodStock.Common.DomainModel
             public uint Weight { get; set; }
         }
 
-        public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
+        public IEnumerable<Ingredient> Ingredients { get; } = new List<Ingredient>();
 
         public string Name { get; set; }
 
@@ -54,6 +54,26 @@ namespace FoodStock.Common.DomainModel
         protected virtual uint CalculateWeight()
         {
             return (uint)Ingredients.Sum(ingr => ingr.Weight);
+        }
+
+
+        /// <summary>
+        /// Добавить в блюдо ингридиент
+        /// </summary>
+        /// <param name="ingredient">ингридиент</param>
+        public void AddIngredient(Ingredient ingredient)
+        {
+            ((List<Ingredient>)Ingredients).Add(ingredient);
+        }
+
+
+        /// <summary>
+        /// Удалить игридиент из блюда
+        /// </summary>
+        /// <param name="ingredient"></param>
+        public void RemoveIngredient(Ingredient ingredient)
+        {
+            ((List<Ingredient>)Ingredients).Remove(ingredient);
         }
     }
 }
