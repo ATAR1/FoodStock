@@ -21,15 +21,15 @@ namespace FoodStock.Common.DomainModel.Tests
             _item2 = new FoodItem { Name = "item2", Calories = 13, AnimalProteins = 14, VegetableProteins = 15, AnimalFats = 16, VegetableFats = 17, Carbs = 18 };
         }
 
-        
 
-        
+
+
         [TestMethod()]
         public void DishMustToSummValuesInProportionOfTheWeightFloat()
         {
             Dish dish = new Dish();
-            
-            dish.Ingredients.Add(new Dish.Ingredient { FoodItem = _item2, Weight = 200 });
+
+            dish.AddIngredient(new Dish.Ingredient { FoodItem = _item2, Weight = 200 });
             Assert.AreEqual(26u, dish.Calories, "Каллории должны добавлятся пропорционально весу ингридиента");
             Assert.AreEqual(28u, dish.AnimalProteins, "Животные белки должны добавлятся пропорционально весу ингридиента");
             Assert.AreEqual(30u, dish.VegetableProteins, "Ценность должна добавлятся пропорционально весу ингридиента");
@@ -42,8 +42,8 @@ namespace FoodStock.Common.DomainModel.Tests
         public void DishMustToSummValues()
         {
             Dish dish = new Dish();
-            dish.Ingredients.Add(new Dish.Ingredient { FoodItem = _item1, Weight = 100 });
-            dish.Ingredients.Add(new Dish.Ingredient { FoodItem = _item2, Weight = 100 });
+            dish.AddIngredient(new Dish.Ingredient { FoodItem = _item1, Weight = 100 });
+            dish.AddIngredient(new Dish.Ingredient { FoodItem = _item2, Weight = 100 });
 
             Assert.AreEqual(23u, dish.Calories, "Каллории должны суммироваться");
             Assert.AreEqual(24u, dish.AnimalProteins, "Животные белки должны суммироваться");
@@ -53,6 +53,27 @@ namespace FoodStock.Common.DomainModel.Tests
             Assert.AreEqual(28u, dish.Carbs, "Углеводы всех ингридиентов должны суммироваться");
         }
 
+        [TestMethod()]
+        public void AddIngredientTest()
+        {
+            Dish dish = new Dish();
+            dish.AddIngredient(new Dish.Ingredient { FoodItem = _item1, Weight = 100 });
+            Assert.AreEqual(1, dish.Ingredients.Count());
+        }
+
+        [TestMethod()]
+        public void RemoveIngredientTest()
+        {
+            Dish dish = new Dish();
+            Dish.Ingredient ingredient = new Dish.Ingredient { FoodItem = _item1, Weight = 100 };
+            dish.AddIngredient(ingredient);
+            dish.AddIngredient(new Dish.Ingredient { FoodItem = _item1, Weight = 100 });
+            Assert.AreEqual(2, dish.Ingredients.Count());
+
+            dish.RemoveIngredient(ingredient);
+            Assert.AreEqual(1, dish.Ingredients.Count());
+            Assert.IsFalse( dish.Ingredients.Contains(ingredient));
+        }
     }
 }
 

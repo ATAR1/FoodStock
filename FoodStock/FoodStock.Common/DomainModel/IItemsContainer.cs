@@ -5,13 +5,11 @@ namespace FoodStock.Common.DomainModel
 {
     public interface IItemsContainer<T>
     {
-        
-        Func<T> AddNewItem { get; }
 
-        T SelectedItem { get; set; }
+        T AddNewItem();
 
-        ICollection<T> Items { get; }
+        IEnumerable<T> Items { get; }
 
-        Action RemoveSelectedItem { get; }
+        void RemoveItem(T item);
     }
 }

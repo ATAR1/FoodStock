@@ -7,7 +7,7 @@
 
         public void AddIngredient(Dish.Ingredient ingredient)
         {
-            SelectedDish?.Ingredients.Add(ingredient);
+            SelectedDish?.AddIngredient(ingredient);
         }
     }
 }

@@ -20,17 +20,12 @@ namespace FoodStock.Common.DomainModel.Tests
             var folderB = tree.AddNewFolder();
             var folderC = tree.AddNewFolder();
 
-            Assert.AreEqual(3, tree.Folders.Count);
+            Assert.AreEqual(3, tree.Folders.Count());
 
-            tree.SelectedItem = folderB;
-            var folderBA = tree.AddNewFolder();
-            var folderBB = tree.AddNewFolder();
-            tree.SelectedItem = folderBA;
-            var item = tree.AddNewItem();
-            tree.AddNewItem();
-            tree.AddNewItem();
-
-            Assert.AreEqual(3, folderBA.Items.Count);
+            var folderBA = folderB.AddNewFolder();
+            var folderBB = folderB.AddNewFolder();
+            var item = folderBA.AddNewItem();
+            Assert.AreEqual(1, folderBA.Items.Count());
             Assert.IsInstanceOfType(item,typeof(FoodItem));
         }
 

@@ -18,11 +18,9 @@ namespace FoodStock.Common.DomainModel.Tests
         {
             var folderA = new Folder<FoodItem>();
             var folderB =  folderA.AddNewFolder();
-            folderA.SelectedItem = folderB;
-            folderA.RemoveSelectedItem();
+            folderA.RemoveItem(folderB);
             
             Assert.IsFalse(folderA.Folders.Contains(folderB));
-            Assert.IsNull(folderA.SelectedItem);
         }
     }
 }

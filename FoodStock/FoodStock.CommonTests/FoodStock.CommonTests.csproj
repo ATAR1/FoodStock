@@ -69,6 +69,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Commands\EditHandbooksCommandTests.cs" />
+    <Compile Include="DomainModel\DishesCatalogTests.cs" />
     <Compile Include="DomainModel\DishTests.cs" />
     <Compile Include="DomainModel\FolderTests.cs" />
     <Compile Include="DomainModel\FoodItemsCatalogTests.cs" />

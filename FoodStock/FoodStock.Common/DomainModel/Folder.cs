@@ -8,71 +8,49 @@ namespace FoodStock.Common.DomainModel
     /// </summary>
     /// <typeparam name="T">Тип элементов которые могут содержаться в этой папке либо во вложенных папках</typeparam>
     public class Folder<T>:IItemsContainer<T>,IItemsContainer<Folder<T>> where T:new()
-    {
-        private Folder<T> _selectedFolder;
-        private T _selectedItem;
-
-        private T AddNewItemImpl()
+    {               
+        /// <summary>
+        /// Создаёт новый элемент, добавляет в Items и возвращает его.
+        /// </summary>
+        public T AddNewItem()
         {
             var newItem = new T();
-            Items.Add(newItem);
+            _items.Add(newItem);
             return newItem;
         }
-
-        private Folder<T> AddNewFolderImpl()
-        {
-            var newFolder = new Folder<T>();
-            Folders.Add(newFolder);
-            return newFolder;
-        }
-
-        public ICollection<T> Items { get; } = new List<T>();
-
-        public T SelectedItem
-        {
-            get
-            {
-                return _selectedItem;
-            }
-            set
-            {
-                _selectedItem = value;
-            }
-        }
-
-        public ICollection<Folder<T>> Folders { get; } = new List<Folder<T>>();
-        
-        private Folder<T> SelectedFolder
-        {
-            get
-            {
-                return _selectedFolder;
-            }
-            set
-            {
-                _selectedFolder = value;
-                if(_selectedFolder!=null)_selectedFolder.SelectedFolder = null;
-            }
-        }
-
 
         /// <summary>
         /// Создаёт новую папку, добавляет в Folders и возвращает её.
         /// </summary>
-        public Func<Folder<T>> AddNewFolder => _selectedFolder?.AddNewFolder ?? AddNewFolderImpl;
+        public Folder<T> AddNewFolder()
+        {
+            var newFolder = new Folder<T>();
+            _folders.Add(newFolder);
+            return newFolder;
+        }
 
+        Folder<T> IItemsContainer<Folder<T>>.AddNewItem() => this.AddNewFolder();
+        
+        public void RemoveItem(T item)
+        {
+            _items.Remove(item);
+        }
 
-        /// <summary>
-        /// Создаёт новый элемент, добавляет в Items и возвращает его.
-        /// </summary>
-        public Func<T> AddNewItem => _selectedFolder?.AddNewItem ??  AddNewItemImpl;
+        
+        public void RemoveItem(Folder<T> item) => RemoveFolder(item);
 
-        Func<Folder<T>> IItemsContainer<Folder<T>>.AddNewItem => AddNewFolder;
+        private void RemoveFolder(Folder<T> folder)
+        {
+            _folders.Remove(folder);
+        }
 
-        public Action RemoveSelectedItem => ()=> { Items.Remove(SelectedItem); SelectedItem = default(T); };
+        private readonly List<T> _items = new List<T>();
+        public IEnumerable<T> Items => _items;
 
-        Folder<T> IItemsContainer<Folder<T>>.SelectedItem { get => SelectedFolder; set => SelectedFolder = value; }
-
-        ICollection<Folder<T>> IItemsContainer<Folder<T>>.Items => Folders;
+        private readonly List<Folder<T>> _folders = new List<Folder<T>>();
+        public IEnumerable<Folder<T>> Folders => _folders;
+        
+        
+        IEnumerable<Folder<T>> IItemsContainer<Folder<T>>.Items => _folders;
     }
 }
